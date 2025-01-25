@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import authModel from "../model/authModel.js";
 import generateToken from "../helper/cryptoToken.js";
 import sendVerificationEmail from "../helper/sendEmail.js";
