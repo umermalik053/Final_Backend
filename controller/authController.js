@@ -6,9 +6,9 @@ import { generateJwtToken } from "../helper/jwtToken.js";
 
 // import necessary modules
 const registerController = async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, cnic } = req.body;
   // Validate the data
-  if (!name || !email || !password) {
+  if (!name || !email || !cnic) {
     return res.status(400).json({ message: "All fields are required." });
   }
   try {
@@ -17,12 +17,15 @@ const registerController = async (req, res) => {
     if (existingUser) {
       return res.status(400).json({ message: "Email already exists." });
     }
+
+    const generatepassword = generateToken(30)
+    const verificationToken = generateToken(10);
     // Hash the password
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const verificationToken = generateToken(20);
+    const hashedPassword = await bcrypt.hash(generatepassword, 10);
     const newUser =  new authModel({
       name,
       email,
+      cnic,
       password: hashedPassword,
       verificationToken,
       verificationTokenExpiresAt: Date.now() + 3600000, // 1 hour
@@ -34,9 +37,10 @@ const registerController = async (req, res) => {
       verificationToken,
       "verificationEmail",
       email,
-      "Verify your Email"
+      "Verify your Email",
+      generatepassword,
     );
-
+// 3eb38e9f5495486112f2e5902f4d02a750054b6fb2db9f5fe8e0d6f2e8e1
     res
       .status(201)
       .json({ message: "User registered. Please verify your email." });

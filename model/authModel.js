@@ -4,6 +4,7 @@ const authSchema = mongoose.Schema(
   {
     name: { type: String },
     email: { type: String, unique: true },
+    cnic: { type: String, unique: true},
     password: { type: String },
     role: { type: String, enum: ["admin", "user"], default: "user" },
     isActive: { type: Boolean, default: false },

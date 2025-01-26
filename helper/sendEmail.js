@@ -9,7 +9,8 @@ const sendVerificationEmail = async (
   verificationToken,
   url,
   email,
-  subject
+  subject,
+  generatepassword
 ) => {
   console.log(verificationToken)
   try {
@@ -67,6 +68,10 @@ const sendVerificationEmail = async (
             <h1>${subject}</h1>
           </div>
           <div class="email-body">
+
+          <div>${generatepassword}<div>
+
+
             <p>Hi there,</p>
             <p>Thank you for signing up! Please click the button below to ${subject}</p>
             <p style="text-align: center;">
